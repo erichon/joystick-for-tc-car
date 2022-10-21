@@ -1,8 +1,8 @@
-let prev_beep = 0
 let curr_beep = 0
 let prev_angle = 0
 let fb_joystick = 0
 radio.setGroup(1)
+let prev_beep = 1
 basic.forever(function () {
     fb_joystick = pins.analogReadPin(AnalogPin.P1)
     if (fb_joystick <= 400 || fb_joystick >= 600) {
@@ -18,10 +18,10 @@ basic.forever(function () {
     curr_beep = pins.digitalReadPin(DigitalPin.P2)
     if (curr_beep != prev_beep) {
         if (prev_beep == 0) {
-            radio.sendValue("beep", 1)
-        } else {
             radio.sendValue("beep", 0)
+        } else {
+            radio.sendValue("beep", 1)
         }
-        prev_beep = curr_beep
     }
+    prev_beep = curr_beep
 })
